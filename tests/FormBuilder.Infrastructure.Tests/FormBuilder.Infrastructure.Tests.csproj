@@ -1,0 +1,9 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!-- Persistence tests: the EF model and read-side projections against SQLite in-memory. -->
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\FormBuilder.Infrastructure\FormBuilder.Infrastructure.csproj" />
+  </ItemGroup>
+
+</Project>
