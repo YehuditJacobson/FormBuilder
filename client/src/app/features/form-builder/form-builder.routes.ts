@@ -1,11 +1,11 @@
 import { Routes } from '@angular/router';
+import { FormBuilderPage } from './pages/form-builder.page';
 
 /**
  * Routes for the form-builder feature, lazy-loaded under `/forms`.
- *
- * Populated in Step 08 / Step 09:
- *   ''      -> form list         (FormListPage)
- *   'new'   -> create-form screen (FormBuilderPage)
- *   ':id'   -> read-only view    (FormViewPage)
+ * Step 09 adds the list at `''` and the read-only view at `':id'`.
  */
-export const formBuilderRoutes: Routes = [];
+export const formBuilderRoutes: Routes = [
+  { path: '', pathMatch: 'full', redirectTo: 'new' },
+  { path: 'new', component: FormBuilderPage, title: 'יצירת טופס חדש' },
+];

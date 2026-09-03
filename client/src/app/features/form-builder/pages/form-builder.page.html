@@ -1,0 +1,159 @@
+@if (savedId(); as id) {
+  <div class="page">
+    <div class="card saved">
+      <div class="saved__icon"><app-icon name="check" [size]="24" [strokeWidth]="2.4" /></div>
+      <h1>הטופס נשמר בהצלחה</h1>
+      <p class="muted">מזהה הטופס: <span dir="ltr">{{ id }}</span></p>
+      <button type="button" class="btn btn--primary" (click)="startNew()">
+        <app-icon name="plus" [size]="15" [strokeWidth]="2.2" />
+        יצירת טופס נוסף
+      </button>
+    </div>
+  </div>
+} @else {
+  <form class="page" [formGroup]="form" (ngSubmit)="submit()">
+    <header class="head">
+      <div>
+        <h1>יצירת טופס חדש</h1>
+        <p class="muted">הוסיפו שדות, הגדירו את מסלול האישורים, ואז שמרו את הטופס כולו.</p>
+      </div>
+      <div class="head__actions">
+        <button type="button" class="btn btn--ghost" (click)="cancel()">ביטול</button>
+        <button type="submit" class="btn btn--primary" [disabled]="form.invalid || saving()">
+          <app-icon name="check" [size]="15" [strokeWidth]="2.2" />
+          {{ saving() ? 'שומר…' : 'שמירת טופס' }}
+        </button>
+      </div>
+    </header>
+
+    @if (form.invalid && hasStarted()) {
+      <div class="alert" role="alert">
+        <app-icon name="alert-circle" [size]="18" />
+        <div>
+          <h2>יש לתקן {{ errorSummary().length }} בעיות לפני השמירה</h2>
+          <ul>
+            @for (message of errorSummary(); track message) {
+              <li>{{ message }}</li>
+            }
+          </ul>
+        </div>
+      </div>
+    }
+
+    @if (serverError(); as error) {
+      <div class="alert" role="alert">
+        <app-icon name="alert-circle" [size]="18" />
+        <div>
+          <h2>{{ error.title }}</h2>
+          @if (error.detail) {
+            <p>{{ error.detail }}</p>
+          }
+        </div>
+      </div>
+    }
+
+    <div class="layout">
+      <div class="main">
+        <section class="card">
+          <div class="card__head"><h2 class="card__title">פרטי הטופס</h2></div>
+          <div class="card__body stack">
+            <div>
+              <label class="field-label" for="form-name">
+                שם הטופס <span class="field-required">*</span>
+              </label>
+              <input
+                id="form-name"
+                class="input"
+                formControlName="name"
+                [class.is-invalid]="form.controls.name.invalid && form.controls.name.touched"
+                placeholder="לדוגמה: בקשת חופשה"
+              />
+            </div>
+            <div>
+              <label class="field-label" for="form-description">תיאור</label>
+              <textarea id="form-description" class="textarea" formControlName="description"></textarea>
+            </div>
+          </div>
+        </section>
+
+        <section class="card">
+          <div class="card__head">
+            <h2 class="card__title">שדות</h2>
+            <span class="tag">{{ fields.length }} שדות</span>
+          </div>
+          <div class="card__body stack">
+            <div class="add-row">
+              @for (button of addFieldButtons; track button.type) {
+                <button type="button" class="addbtn" (click)="addField(button.type)">
+                  <app-icon [name]="button.icon" [size]="14" />
+                  {{ button.label }}
+                </button>
+              }
+            </div>
+            @if (fields.length > 0) {
+              <hr class="divider" />
+              @for (group of fields.controls; track group) {
+                <app-field-row
+                  [group]="group"
+                  [index]="$index"
+                  [count]="fields.length"
+                  (remove)="removeField($index)"
+                  (moveUp)="moveField($index, $index - 1)"
+                  (moveDown)="moveField($index, $index + 1)"
+                />
+              }
+            } @else {
+              <p class="muted empty-hint">עדיין לא נוספו שדות.</p>
+            }
+          </div>
+        </section>
+
+        <section class="card">
+          <div class="card__head">
+            <h2 class="card__title">מסלול אישורים</h2>
+            <span class="tag">{{ steps.length }} שלבים</span>
+          </div>
+          <div class="card__body stack">
+            <button type="button" class="addbtn addbtn--wide" (click)="addStep()">
+              <app-icon name="plus" [size]="15" [strokeWidth]="2.2" />
+              הוספת שלב אישור
+            </button>
+            @if (steps.length > 0) {
+              <hr class="divider" />
+              @for (group of steps.controls; track group) {
+                <app-approval-step-row
+                  [group]="group"
+                  [index]="$index"
+                  [count]="steps.length"
+                  (remove)="removeStep($index)"
+                  (moveUp)="moveStep($index, $index - 1)"
+                  (moveDown)="moveStep($index, $index + 1)"
+                />
+              }
+            } @else {
+              <p class="muted empty-hint">עדיין לא נוספו שלבי אישור.</p>
+            }
+          </div>
+        </section>
+
+        <p class="muted foot-note">
+          סדר השדות והשלבים נקבע לפי המיקום ברשימה. השתמשו בחיצים כדי לשנות את הסדר.
+        </p>
+      </div>
+
+      <aside class="aside">
+        <section class="card">
+          <div class="card__head">
+            <h2 class="card__title preview-title">
+              <app-icon name="eye" [size]="16" />
+              תצוגה מקדימה
+            </h2>
+          </div>
+          <div class="card__body">
+            <app-form-preview [value]="value()" />
+          </div>
+        </section>
+      </aside>
+    </div>
+  </form>
+}
