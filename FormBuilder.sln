@@ -19,6 +19,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FormBuilder.Application.Tes
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FormBuilder.Api.IntegrationTests", "tests\FormBuilder.Api.IntegrationTests\FormBuilder.Api.IntegrationTests.csproj", "{2B616684-D6F6-4047-B541-44BE2497F6AA}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{0AB3BF05-4346-4AA6-1389-037BE0695223}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FormBuilder.Infrastructure.Tests", "tests\FormBuilder.Infrastructure.Tests\FormBuilder.Infrastructure.Tests.csproj", "{CC44267B-DC62-4819-86C8-F274581F6B73}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -113,6 +117,18 @@ Global
 		{2B616684-D6F6-4047-B541-44BE2497F6AA}.Release|x64.Build.0 = Release|Any CPU
 		{2B616684-D6F6-4047-B541-44BE2497F6AA}.Release|x86.ActiveCfg = Release|Any CPU
 		{2B616684-D6F6-4047-B541-44BE2497F6AA}.Release|x86.Build.0 = Release|Any CPU
+		{CC44267B-DC62-4819-86C8-F274581F6B73}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CC44267B-DC62-4819-86C8-F274581F6B73}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CC44267B-DC62-4819-86C8-F274581F6B73}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{CC44267B-DC62-4819-86C8-F274581F6B73}.Debug|x64.Build.0 = Debug|Any CPU
+		{CC44267B-DC62-4819-86C8-F274581F6B73}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{CC44267B-DC62-4819-86C8-F274581F6B73}.Debug|x86.Build.0 = Debug|Any CPU
+		{CC44267B-DC62-4819-86C8-F274581F6B73}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CC44267B-DC62-4819-86C8-F274581F6B73}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CC44267B-DC62-4819-86C8-F274581F6B73}.Release|x64.ActiveCfg = Release|Any CPU
+		{CC44267B-DC62-4819-86C8-F274581F6B73}.Release|x64.Build.0 = Release|Any CPU
+		{CC44267B-DC62-4819-86C8-F274581F6B73}.Release|x86.ActiveCfg = Release|Any CPU
+		{CC44267B-DC62-4819-86C8-F274581F6B73}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -125,5 +141,6 @@ Global
 		{CC1B27FE-5686-44CB-970A-639ED3333840} = {827E0CD3-B72D-47B6-A68D-7590B98EB39B}
 		{10C572D5-0998-4CDE-B687-C3D1671A267D} = {827E0CD3-B72D-47B6-A68D-7590B98EB39B}
 		{2B616684-D6F6-4047-B541-44BE2497F6AA} = {827E0CD3-B72D-47B6-A68D-7590B98EB39B}
+		{CC44267B-DC62-4819-86C8-F274581F6B73} = {0AB3BF05-4346-4AA6-1389-037BE0695223}
 	EndGlobalSection
 EndGlobal
