@@ -71,6 +71,8 @@ app.UseSerilogRequestLogging();
 
 if (app.Environment.IsDevelopment())
 {
+    await DataSeeder.SeedAsync(app.Services);
+
     app.UseSwagger();
     app.UseSwaggerUI(options => options.SwaggerEndpoint("/swagger/v1/swagger.json", "Form Builder API v1"));
 }
