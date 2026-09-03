@@ -1,0 +1,17 @@
+{
+  "artboards": [
+    { "file": "FormList.dc.html", "title": "Form list · /forms", "x": 0, "y": 0, "w": 1240, "h": 620 },
+    { "file": "Main.dc.html", "title": "Create form · /forms/new", "x": 1360, "y": 0, "w": 1320, "h": 1640 },
+    { "file": "FormView.dc.html", "title": "View form · /forms/:id", "x": 0, "y": 1800, "w": 1200, "h": 900 },
+    { "file": "Validation.dc.html", "title": "Validation states", "x": 1360, "y": 1800, "w": 980, "h": 1260 },
+    { "file": "EmptyState.dc.html", "title": "Form list · empty", "x": 0, "y": 3180, "w": 1240, "h": 620 }
+  ],
+  "annotations": [
+    { "id": "note-list", "x": 0, "y": -96, "w": 400, "text": "GET /api/v1/forms — saved templates with field / step counts, status, author. Row opens the read-only view; “New form” opens the builder." },
+    { "id": "note-builder", "x": 1360, "y": -128, "w": 470, "text": "POST /api/v1/forms — the core screen. Form name + description, dynamically added fields (Text / Date / Number / Checkbox / Dropdown), and the approval route. Live preview on the right. Order follows list position; arrows reorder." },
+    { "id": "note-view", "x": 0, "y": 1704, "w": 400, "text": "GET /api/v1/forms/{id} — read-only. The built form rendered as disabled inputs; the approval route shown as a numbered stepper with action-type tags." },
+    { "id": "note-valid", "x": 1360, "y": 1704, "w": 430, "text": "Reactive Forms validation — inline errors on blur, a summary banner listing every issue, and Save disabled until the whole form is valid." },
+    { "id": "note-empty", "x": 0, "y": 3084, "w": 380, "text": "Form list — empty state shown on first run, before any template exists." }
+  ],
+  "launch": { "view": "canvas" }
+}

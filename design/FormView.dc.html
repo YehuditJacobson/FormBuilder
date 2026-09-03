@@ -1,0 +1,147 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;500;600;700&display=swap">
+  <style>
+    :root{
+      --bg: oklch(0.99 0.004 255);
+      --surface:#ffffff;
+      --surface-2: oklch(0.976 0.004 255);
+      --surface-3: oklch(0.955 0.005 255);
+      --border: oklch(0.918 0.006 255);
+      --border-strong: oklch(0.865 0.008 255);
+      --text: oklch(0.29 0.02 260);
+      --text-2: oklch(0.5 0.016 260);
+      --text-3: oklch(0.63 0.012 260);
+      --accent: oklch(0.55 0.12 245);
+      --accent-hover: oklch(0.47 0.13 245);
+      --accent-tint: oklch(0.965 0.03 245);
+      --success: oklch(0.5 0.12 155);
+      --success-tint: oklch(0.955 0.035 155);
+      --radius: 9px;
+      --radius-sm: 6px;
+      --shadow-sm: 0 1px 2px rgba(15,23,42,.05);
+      --font: "Assistant", "Segoe UI", system-ui, -apple-system, sans-serif;
+    }
+    *{box-sizing:border-box;}
+    body{margin:0;direction:rtl;background:var(--bg);color:var(--text);font-family:var(--font);font-size:14px;line-height:1.55;-webkit-font-smoothing:antialiased;}
+    h1,h2,h3,p{margin:0;}
+    .topbar{height:56px;border-bottom:1px solid var(--border);background:var(--surface);display:flex;align-items:center;gap:9px;padding:0 24px;font-size:13px;}
+    .brand{font-weight:700;margin-left:6px;}
+    .crumb{color:var(--text-3);}
+    .crumb--here{color:var(--text);font-weight:600;}
+    .page{max-width:1080px;margin:0 auto;padding:26px 28px 60px;}
+    .btn{display:inline-flex;align-items:center;gap:7px;height:36px;padding:0 14px;border-radius:var(--radius-sm);border:1px solid var(--border-strong);background:var(--surface);color:var(--text);font:inherit;font-weight:600;font-size:13px;cursor:pointer;}
+    .btn:hover{background:var(--surface-2);}
+    .btn--primary{background:var(--accent);border-color:var(--accent);color:#fff;}
+    .icon-btn{display:inline-flex;align-items:center;justify-content:center;width:31px;height:31px;border-radius:var(--radius-sm);border:1px solid var(--border);background:var(--surface);color:var(--text-2);cursor:pointer;}
+    .icon-btn:hover{background:var(--surface-2);color:var(--text);}
+    .card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow-sm);}
+    .card__head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:13px 18px;border-bottom:1px solid var(--border);}
+    .card__title{font-size:15px;font-weight:700;}
+    .card__body{padding:20px;}
+    .label{display:block;font-size:12.5px;font-weight:600;color:var(--text-2);margin-bottom:6px;}
+    .req{color:oklch(0.55 0.19 25);}
+    .ff{background:var(--surface-2);border:1px solid var(--border);border-radius:var(--radius-sm);min-height:38px;display:flex;align-items:center;padding:0 12px;color:var(--text-3);font-size:13px;}
+    .ff--area{min-height:64px;align-items:flex-start;padding-top:9px;}
+    .muted{color:var(--text-3);}
+    .hr{height:1px;background:var(--border);border:0;margin:0;}
+    .badge{display:inline-flex;align-items:center;gap:6px;height:23px;padding:0 10px;border-radius:999px;font-size:12px;font-weight:600;background:var(--success-tint);color:var(--success);}
+    .dot{width:6px;height:6px;border-radius:999px;background:currentColor;}
+    .tag{display:inline-flex;align-items:center;height:22px;padding:0 9px;border-radius:999px;background:var(--accent-tint);color:var(--accent-hover);font-size:12px;font-weight:600;}
+    .stepper{display:flex;flex-direction:column;gap:16px;}
+    .stepper__item{display:flex;gap:12px;align-items:flex-start;}
+    .stepper__dot{position:relative;flex-shrink:0;display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:999px;background:var(--accent);color:#fff;font-size:12px;font-weight:600;font-variant-numeric:tabular-nums;}
+    .stepper__item:not(:last-child) .stepper__dot::after{content:"";position:absolute;top:28px;left:50%;transform:translateX(-50%);width:2px;height:26px;background:var(--border-strong);}
+    .flip{transform:scaleX(-1);}
+  </style>
+</helmet>
+
+<div class="topbar">
+  <span class="brand">בונה טפסים</span>
+  <span class="crumb">טפסים</span>
+  <span class="crumb">/</span>
+  <span class="crumb crumb--here">בקשת חופשה</span>
+</div>
+
+<div class="page">
+  <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:20px;margin-bottom:8px">
+    <div style="display:flex;align-items:center;gap:12px">
+      <button class="icon-btn" aria-label="חזרה לרשימה">
+        <svg class="flip" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      </button>
+      <h1 style="font-size:21px;font-weight:700">בקשת חופשה</h1>
+      <span class="badge"><span class="dot"></span>פורסם</span>
+    </div>
+    <button class="btn">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+      טופס חדש מתבנית זו
+    </button>
+  </div>
+  <p class="muted" style="font-size:12.5px;margin:0 0 22px 0;padding-inline-start:43px">נוצר על ידי דנה לוי &nbsp;·&nbsp; <span dir="ltr">12/01/2026</span> &nbsp;·&nbsp; 6 שדות &nbsp;·&nbsp; 3 שלבי אישור</p>
+
+  <div style="display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:26px;align-items:start">
+
+    <div class="card">
+      <div class="card__head"><h2 class="card__title">טופס</h2><span class="muted" style="font-size:12px">לקריאה בלבד</span></div>
+      <div class="card__body" style="display:flex;flex-direction:column;gap:15px">
+        <div><label class="label">שם העובד <span class="req">*</span></label><div class="ff">שם מלא</div></div>
+        <div><label class="label">מספר עובד <span class="req">*</span></label><div class="ff">000000000</div></div>
+        <div><label class="label">סוג חופשה <span class="req">*</span></label>
+          <div class="ff" style="justify-content:space-between">שנתית
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+          <div><label class="label">תאריך התחלה <span class="req">*</span></label><div class="ff" style="justify-content:space-between">יום / חודש / שנה
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></div></div>
+          <div><label class="label">תאריך סיום <span class="req">*</span></label><div class="ff" style="justify-content:space-between">יום / חודש / שנה
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></div></div>
+        </div>
+        <div><label class="label">מספר ימים <span class="req">*</span></label><div class="ff">0</div></div>
+        <div><label class="label">סיבה</label><div class="ff ff--area">הערה לא חובה עבור המאשר</div></div>
+        <button class="btn btn--primary" disabled style="align-self:flex-start;opacity:.5;cursor:default;margin-top:4px">שליחת הבקשה</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card__head"><h2 class="card__title">מסלול אישורים</h2></div>
+      <div class="card__body">
+        <div class="stepper">
+          <div class="stepper__item">
+            <span class="stepper__dot">1</span>
+            <div>
+              <div style="font-weight:600;font-size:13.5px">אישור מנהל ישיר</div>
+              <div style="display:flex;align-items:center;gap:8px;margin-top:5px"><span class="tag">אישור</span><span class="muted" style="font-size:12px">מנהל המבקש</span></div>
+            </div>
+          </div>
+          <div class="stepper__item">
+            <span class="stepper__dot">2</span>
+            <div>
+              <div style="font-weight:600;font-size:13.5px">ראש מחלקה</div>
+              <div style="display:flex;align-items:center;gap:8px;margin-top:5px"><span class="tag">אישור</span><span class="muted" style="font-size:12px">ראש המחלקה</span></div>
+            </div>
+          </div>
+          <div class="stepper__item">
+            <span class="stepper__dot">3</span>
+            <div>
+              <div style="font-weight:600;font-size:13.5px">אימות משאבי אנוש</div>
+              <div style="display:flex;align-items:center;gap:8px;margin-top:5px"><span class="tag">חתימה</span><span class="muted" style="font-size:12px" dir="ltr">hr@tax.gov.il</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+</x-dc>
+</body>
+</html>

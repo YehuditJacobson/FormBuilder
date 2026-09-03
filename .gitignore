@@ -1,0 +1,65 @@
+## ------------------------------------------------------------------
+## .NET
+## ------------------------------------------------------------------
+bin/
+obj/
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+[Bb]uild/
+artifacts/
+*.user
+*.suo
+*.userprefs
+*.dll
+*.pdb
+
+## Test / coverage output
+[Tt]est[Rr]esult*/
+coverage*.json
+coverage*.xml
+coverage*.info
+*.trx
+.coverage
+
+## Rider / ReSharper
+.idea/
+_ReSharper*/
+*.DotSettings.user
+
+## Visual Studio
+.vs/
+*.vsp
+*.vspx
+
+## VS Code
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+## SQLite (local PoC database)
+*.db
+*.db-shm
+*.db-wal
+*.sqlite
+
+## Environment / secrets
+appsettings.*.local.json
+*.env
+.env
+
+## ------------------------------------------------------------------
+## Angular / Node (client, added in Step 06)
+## ------------------------------------------------------------------
+node_modules/
+dist/
+.angular/
+npm-debug.log*
+yarn-error.log*
+
+## OS
+.DS_Store
+Thumbs.db

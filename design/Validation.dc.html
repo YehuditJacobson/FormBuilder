@@ -1,0 +1,172 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;500;600;700&display=swap">
+  <style>
+    :root{
+      --bg: oklch(0.99 0.004 255);
+      --surface:#ffffff;
+      --surface-2: oklch(0.976 0.004 255);
+      --surface-3: oklch(0.955 0.005 255);
+      --border: oklch(0.918 0.006 255);
+      --border-strong: oklch(0.865 0.008 255);
+      --text: oklch(0.29 0.02 260);
+      --text-2: oklch(0.5 0.016 260);
+      --text-3: oklch(0.63 0.012 260);
+      --accent: oklch(0.55 0.12 245);
+      --accent-hover: oklch(0.47 0.13 245);
+      --accent-tint: oklch(0.965 0.03 245);
+      --danger: oklch(0.53 0.2 25);
+      --danger-tint: oklch(0.965 0.035 25);
+      --danger-line: oklch(0.8 0.09 25);
+      --radius: 9px;
+      --radius-sm: 6px;
+      --shadow-sm: 0 1px 2px rgba(15,23,42,.05);
+      --font: "Assistant", "Segoe UI", system-ui, -apple-system, sans-serif;
+    }
+    *{box-sizing:border-box;}
+    body{margin:0;direction:rtl;background:var(--bg);color:var(--text);font-family:var(--font);font-size:14px;line-height:1.55;-webkit-font-smoothing:antialiased;}
+    h1,h2,p{margin:0;}
+    .topbar{height:56px;border-bottom:1px solid var(--border);background:var(--surface);display:flex;align-items:center;gap:9px;padding:0 24px;font-size:13px;}
+    .brand{font-weight:700;margin-left:6px;}
+    .crumb{color:var(--text-3);}
+    .crumb--here{color:var(--text);font-weight:600;}
+    .page{max-width:860px;margin:0 auto;padding:26px 28px 60px;}
+    .btn{display:inline-flex;align-items:center;gap:7px;height:38px;padding:0 15px;border-radius:var(--radius-sm);border:1px solid var(--border-strong);background:var(--surface);color:var(--text);font:inherit;font-weight:600;font-size:13px;cursor:pointer;}
+    .btn--ghost{border-color:transparent;background:transparent;color:var(--text-2);}
+    .btn--primary{background:var(--accent);border-color:var(--accent);color:#fff;}
+    .btn[disabled]{opacity:.45;cursor:not-allowed;}
+    .card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow-sm);}
+    .card__head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:13px 18px;border-bottom:1px solid var(--border);}
+    .card__title{font-size:15px;font-weight:700;}
+    .card__body{padding:18px;}
+    .label{display:block;font-size:12.5px;font-weight:600;color:var(--text-2);margin-bottom:6px;}
+    .req{color:var(--danger);}
+    .input,.select{width:100%;height:38px;padding:0 12px;border:1px solid var(--border-strong);border-radius:var(--radius-sm);background:var(--surface);font:inherit;font-size:13px;color:var(--text);}
+    .input::placeholder{color:var(--text-3);}
+    .input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-tint);}
+    .input--err{border-color:var(--danger-line);background:var(--danger-tint);}
+    .input--err:focus{border-color:var(--danger);box-shadow:0 0 0 3px var(--danger-tint);}
+    .err{color:var(--danger);font-size:12.5px;font-weight:600;margin-top:6px;display:flex;align-items:center;gap:5px;}
+    .muted{color:var(--text-3);}
+    .row{border:1px solid var(--border);border-radius:var(--radius-sm);padding:13px;display:flex;flex-direction:column;gap:12px;}
+    .row--err{border-color:var(--danger-line);}
+    .row__bar{display:flex;align-items:center;gap:8px;}
+    .ord{display:inline-flex;align-items:center;justify-content:center;width:23px;height:23px;border-radius:999px;background:var(--surface-3);color:var(--text-2);font-size:12px;font-weight:600;font-variant-numeric:tabular-nums;}
+    .tag{display:inline-flex;align-items:center;height:23px;padding:0 9px;border-radius:999px;background:var(--accent-tint);color:var(--accent-hover);font-size:12px;font-weight:600;}
+    .grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+    .icon-btn{display:inline-flex;align-items:center;justify-content:center;width:31px;height:31px;border-radius:var(--radius-sm);border:1px solid var(--border);background:var(--surface);color:var(--text-2);}
+    .alert{display:flex;gap:11px;padding:14px 16px;border:1px solid var(--danger-line);background:var(--danger-tint);border-radius:var(--radius);margin-bottom:18px;}
+    .alert h2{font-size:14px;font-weight:700;color:var(--danger);}
+    .alert ul{margin:7px 0 0;padding-inline-start:18px;color:var(--text-2);font-size:12.5px;}
+    .alert li{margin:2px 0;}
+  </style>
+</helmet>
+
+<div class="topbar">
+  <span class="brand">בונה טפסים</span>
+  <span class="crumb">טפסים</span>
+  <span class="crumb">/</span>
+  <span class="crumb crumb--here">טופס חדש</span>
+</div>
+
+<div class="page">
+  <div style="display:flex;align-items:center;justify-content:space-between;gap:20px;margin-bottom:20px">
+    <h1 style="font-size:20px;font-weight:700">מצבי ולידציה</h1>
+    <div style="display:flex;gap:9px">
+      <button class="btn btn--ghost">ביטול</button>
+      <button class="btn btn--primary" disabled>
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+        שמירת טופס
+      </button>
+    </div>
+  </div>
+
+  <div class="alert">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--danger);flex-shrink:0;margin-top:1px"><circle cx="12" cy="12" r="10"/><path d="M12 8v5M12 16h.01"/></svg>
+    <div>
+      <h2>יש לתקן 3 בעיות לפני השמירה</h2>
+      <ul>
+        <li>שם הטופס הוא שדה חובה</li>
+        <li>לשדה 2 «תאריך» חסרה תווית</li>
+        <li>לשלב אישור 1 חסר שם</li>
+      </ul>
+    </div>
+  </div>
+
+  <div style="display:flex;flex-direction:column;gap:16px">
+
+    <div class="card">
+      <div class="card__head"><h2 class="card__title">פרטי הטופס</h2></div>
+      <div class="card__body">
+        <label class="label">שם הטופס <span class="req">*</span></label>
+        <input class="input input--err" placeholder="לדוגמה: בקשת חופשה">
+        <div class="err">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v5M12 16h.01"/></svg>
+          שם הטופס הוא שדה חובה.
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card__head"><h2 class="card__title">שדות</h2><span class="muted" style="font-size:12px">2 שדות</span></div>
+      <div class="card__body" style="display:flex;flex-direction:column;gap:13px">
+        <div class="row">
+          <div class="row__bar"><span class="ord">1</span><span class="tag">טקסט</span><span style="flex:1"></span><button class="icon-btn"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6"/></svg></button></div>
+          <div class="grid2">
+            <div><label class="label">תווית <span class="req">*</span></label><input class="input" value="שם העובד"></div>
+            <div><label class="label">טקסט רמז</label><input class="input" value="לדוגמה: דנה לוי"></div>
+          </div>
+        </div>
+        <div class="row row--err">
+          <div class="row__bar"><span class="ord">2</span><span class="tag">תאריך</span><span style="flex:1"></span><button class="icon-btn"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6"/></svg></button></div>
+          <div class="grid2">
+            <div>
+              <label class="label">תווית <span class="req">*</span></label>
+              <input class="input input--err" placeholder="תווית השדה">
+              <div class="err">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v5M12 16h.01"/></svg>
+                תווית היא שדה חובה.
+              </div>
+            </div>
+            <div><label class="label">טקסט רמז</label><input class="input" placeholder="—"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card__head"><h2 class="card__title">מסלול אישורים</h2><span class="muted" style="font-size:12px">שלב אחד</span></div>
+      <div class="card__body">
+        <div class="row row--err">
+          <div class="row__bar"><span class="ord">1</span><span class="muted" style="font-size:12px;font-weight:600">שלב אישור</span><span style="flex:1"></span><button class="icon-btn"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6"/></svg></button></div>
+          <div style="display:grid;grid-template-columns:1.3fr 1fr;gap:12px">
+            <div>
+              <label class="label">שם השלב <span class="req">*</span></label>
+              <input class="input input--err" placeholder="לדוגמה: אישור מנהל ישיר">
+              <div class="err">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v5M12 16h.01"/></svg>
+                שם השלב הוא שדה חובה.
+              </div>
+            </div>
+            <div><label class="label">סוג פעולה <span class="req">*</span></label>
+              <select class="select"><option>אישור</option><option>דחייה</option><option>החזרה לתיקון</option><option>חתימה</option><option>יידוע</option></select>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <p class="muted" style="font-size:12.5px">השגיאות מוצגות בשדה עצמו וברשימת הסיכום שלמעלה. כפתור «שמירת טופס» מושבת עד שכל השדות תקינים.</p>
+  </div>
+</div>
+
+</x-dc>
+</body>
+</html>
