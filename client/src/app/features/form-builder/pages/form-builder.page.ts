@@ -9,7 +9,11 @@ import { FieldType } from '../../../core/models/form-template.models';
 import { IconComponent } from '../../../shared/ui/icon/icon.component';
 import { ApprovalStepRowComponent } from '../components/approval-step-row.component';
 import { FieldRowComponent } from '../components/field-row.component';
-import { FormPreviewComponent } from '../components/form-preview.component';
+import {
+  FormPreviewComponent,
+  PreviewField,
+  PreviewStep,
+} from '../components/form-preview.component';
 import {
   BuilderForm,
   FieldGroup,
@@ -43,12 +47,28 @@ export class FormBuilderPage {
   readonly addFieldButtons = ADD_FIELD_BUTTONS;
 
   readonly saving = signal(false);
-  readonly savedId = signal<string | null>(null);
   readonly serverError = signal<ApiError | null>(null);
 
   readonly value = toSignal(
     this.form.valueChanges.pipe(map(() => this.form.getRawValue())),
     { initialValue: this.form.getRawValue() },
+  );
+
+  readonly previewFields = computed<PreviewField[]>(() =>
+    this.value().fields.map((field) => ({
+      label: field.label,
+      fieldType: field.fieldType,
+      isRequired: field.isRequired,
+      placeholder: field.placeholder.trim() || null,
+    })),
+  );
+
+  readonly previewSteps = computed<PreviewStep[]>(() =>
+    this.value().approvalSteps.map((step) => ({
+      name: step.name,
+      actionType: step.actionType,
+      approverId: step.approverId.trim() || null,
+    })),
   );
 
   readonly hasStarted = computed(() => {
@@ -137,21 +157,13 @@ export class FormBuilderPage {
     this.api.create(toCreateRequest(this.form.getRawValue())).subscribe({
       next: ({ id }) => {
         this.saving.set(false);
-        this.savedId.set(id);
+        void this.router.navigate(['/forms', id]);
       },
       error: (error: ApiError) => {
         this.saving.set(false);
         this.serverError.set(error);
       },
     });
-  }
-
-  startNew(): void {
-    this.fields.clear();
-    this.steps.clear();
-    this.form.reset();
-    this.savedId.set(null);
-    this.serverError.set(null);
   }
 
   cancel(): void {

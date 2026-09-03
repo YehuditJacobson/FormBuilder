@@ -1,17 +1,4 @@
-@if (savedId(); as id) {
-  <div class="page">
-    <div class="card saved">
-      <div class="saved__icon"><app-icon name="check" [size]="24" [strokeWidth]="2.4" /></div>
-      <h1>הטופס נשמר בהצלחה</h1>
-      <p class="muted">מזהה הטופס: <span dir="ltr">{{ id }}</span></p>
-      <button type="button" class="btn btn--primary" (click)="startNew()">
-        <app-icon name="plus" [size]="15" [strokeWidth]="2.2" />
-        יצירת טופס נוסף
-      </button>
-    </div>
-  </div>
-} @else {
-  <form class="page" [formGroup]="form" (ngSubmit)="submit()">
+<form class="page" [formGroup]="form" (ngSubmit)="submit()">
     <header class="head">
       <div>
         <h1>יצירת טופס חדש</h1>
@@ -150,10 +137,14 @@
             </h2>
           </div>
           <div class="card__body">
-            <app-form-preview [value]="value()" />
+            <app-form-preview
+              [heading]="value().name"
+              [fields]="previewFields()"
+              [steps]="previewSteps()"
+            />
           </div>
         </section>
       </aside>
     </div>
-  </form>
-}
+</form>
+

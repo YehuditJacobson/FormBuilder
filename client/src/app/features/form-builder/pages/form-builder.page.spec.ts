@@ -1,6 +1,6 @@
 import { provideHttpClient } from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { provideRouter } from '@angular/router';
+import { Router, provideRouter } from '@angular/router';
 import { of, throwError } from 'rxjs';
 import { vi } from 'vitest';
 import { FormTemplateApiService } from '../../../core/api/form-template-api.service';
@@ -9,6 +9,7 @@ import { FormBuilderPage } from './form-builder.page';
 describe('FormBuilderPage', () => {
   let fixture: ComponentFixture<FormBuilderPage>;
   let page: FormBuilderPage;
+  let router: Router;
   const api = { create: vi.fn() };
 
   const makeValid = (): void => {
@@ -30,6 +31,9 @@ describe('FormBuilderPage', () => {
         { provide: FormTemplateApiService, useValue: api },
       ],
     }).compileComponents();
+
+    router = TestBed.inject(Router);
+    vi.spyOn(router, 'navigate').mockResolvedValue(true);
 
     fixture = TestBed.createComponent(FormBuilderPage);
     page = fixture.componentInstance;
@@ -68,7 +72,7 @@ describe('FormBuilderPage', () => {
     expect(api.create).not.toHaveBeenCalled();
   });
 
-  it('submits a valid form and shows the saved state', () => {
+  it('submits a valid form and navigates to the new template', () => {
     api.create.mockReturnValue(of({ id: 'new-id' }));
     makeValid();
     expect(page.form.valid).toBe(true);
@@ -76,7 +80,7 @@ describe('FormBuilderPage', () => {
     page.submit();
 
     expect(api.create).toHaveBeenCalledOnce();
-    expect(page.savedId()).toBe('new-id');
+    expect(router.navigate).toHaveBeenCalledWith(['/forms', 'new-id']);
   });
 
   it('surfaces a server error and stays on the form', () => {
@@ -88,6 +92,6 @@ describe('FormBuilderPage', () => {
     page.submit();
 
     expect(page.serverError()?.title).toBe('שגיאת שרת');
-    expect(page.savedId()).toBeNull();
+    expect(router.navigate).not.toHaveBeenCalled();
   });
 });

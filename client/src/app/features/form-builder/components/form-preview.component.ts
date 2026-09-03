@@ -1,9 +1,25 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
+import { ApprovalActionType, FieldType } from '../../../core/models/form-template.models';
 import { IconComponent } from '../../../shared/ui/icon/icon.component';
-import { BuilderValue } from '../model/builder-form';
 import { APPROVAL_ACTION_LABELS } from '../model/labels';
 
-/** Read-only rendering of the form being built, updated live from the builder value. */
+export interface PreviewField {
+  label: string;
+  fieldType: FieldType;
+  isRequired: boolean;
+  placeholder: string | null;
+}
+
+export interface PreviewStep {
+  name: string;
+  actionType: ApprovalActionType;
+  approverId: string | null;
+}
+
+/**
+ * Read-only rendering of a form and its approval route. Shared by the builder's live preview
+ * (fed from the form value) and the saved-form view (fed from the API detail DTO).
+ */
 @Component({
   selector: 'app-form-preview',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -64,7 +80,7 @@ import { APPROVAL_ACTION_LABELS } from '../model/labels';
     .stepper {
       display: flex;
       flex-direction: column;
-      gap: 13px;
+      gap: 14px;
     }
     .step {
       display: flex;
@@ -76,8 +92,8 @@ import { APPROVAL_ACTION_LABELS } from '../model/labels';
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      width: 23px;
-      height: 23px;
+      width: 24px;
+      height: 24px;
       border-radius: 999px;
       background: var(--accent);
       color: #fff;
@@ -89,15 +105,27 @@ import { APPROVAL_ACTION_LABELS } from '../model/labels';
       font-weight: 600;
       font-size: 13px;
     }
+    .step__meta {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 5px;
+    }
+    .step__approver {
+      color: var(--text-3);
+      font-size: 12px;
+    }
   `,
   template: `
-    <div class="title">{{ value().name || 'ללא שם' }}</div>
+    @if (heading()) {
+      <div class="title">{{ heading() }}</div>
+    }
 
-    @if (value().fields.length === 0) {
-      <p class="placeholder">הוסיפו שדות כדי לראות תצוגה מקדימה.</p>
+    @if (fields().length === 0) {
+      <p class="placeholder">אין שדות להצגה.</p>
     } @else {
       <div class="fields">
-        @for (field of value().fields; track $index) {
+        @for (field of fields(); track $index) {
           <div>
             <label class="field-label">
               {{ field.label || 'שדה ללא תווית' }}
@@ -134,18 +162,21 @@ import { APPROVAL_ACTION_LABELS } from '../model/labels';
     <hr class="divider" />
 
     <div class="field-label" style="margin-bottom: 12px">מסלול אישורים</div>
-    @if (value().approvalSteps.length === 0) {
-      <p class="placeholder">הוסיפו שלבי אישור.</p>
+    @if (steps().length === 0) {
+      <p class="placeholder">אין שלבי אישור.</p>
     } @else {
       <div class="stepper">
-        @for (step of value().approvalSteps; track $index) {
+        @for (step of steps(); track $index) {
           <div class="step">
             <span class="step__dot">{{ $index + 1 }}</span>
             <div>
               <div class="step__name">{{ step.name || 'שלב ללא שם' }}</div>
-              <span class="tag tag--accent" style="height: 20px; margin-top: 5px">
-                {{ actionLabel(step.actionType) }}
-              </span>
+              <div class="step__meta">
+                <span class="tag tag--accent">{{ actionLabel(step.actionType) }}</span>
+                @if (step.approverId) {
+                  <span class="step__approver" dir="auto">{{ step.approverId }}</span>
+                }
+              </div>
             </div>
           </div>
         }
@@ -154,9 +185,11 @@ import { APPROVAL_ACTION_LABELS } from '../model/labels';
   `,
 })
 export class FormPreviewComponent {
-  readonly value = input.required<BuilderValue>();
+  readonly heading = input('');
+  readonly fields = input<PreviewField[]>([]);
+  readonly steps = input<PreviewStep[]>([]);
 
-  protected actionLabel(action: BuilderValue['approvalSteps'][number]['actionType']): string {
+  protected actionLabel(action: ApprovalActionType): string {
     return APPROVAL_ACTION_LABELS[action];
   }
 }
