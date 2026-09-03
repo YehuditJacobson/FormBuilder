@@ -1,0 +1,9 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!-- Unit tests for the domain aggregate and its invariants. -->
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\FormBuilder.Domain\FormBuilder.Domain.csproj" />
+  </ItemGroup>
+
+</Project>

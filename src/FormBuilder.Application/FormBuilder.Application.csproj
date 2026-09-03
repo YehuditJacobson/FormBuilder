@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!--
+    Use cases: CQRS commands/queries and their handlers, DTOs, validators,
+    mapping helpers, and the abstractions (repositories, clock, current user)
+    that Infrastructure implements. Depends only on the Domain.
+  -->
+
+  <ItemGroup>
+    <PackageReference Include="MediatR" />
+    <PackageReference Include="FluentValidation" />
+    <PackageReference Include="FluentValidation.DependencyInjectionExtensions" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\FormBuilder.Domain\FormBuilder.Domain.csproj" />
+  </ItemGroup>
+
+</Project>

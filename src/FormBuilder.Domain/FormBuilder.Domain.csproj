@@ -1,0 +1,8 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!--
+    The innermost layer. No project references, no NuGet packages.
+    Pure C#: entities, value objects, enums, domain rules and domain exceptions.
+  -->
+
+</Project>

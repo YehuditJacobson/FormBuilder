@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!-- Unit tests for CQRS handlers and validators, using fakes for the abstractions. -->
+
+  <ItemGroup>
+    <PackageReference Include="NSubstitute" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\FormBuilder.Application\FormBuilder.Application.csproj" />
+  </ItemGroup>
+
+</Project>
