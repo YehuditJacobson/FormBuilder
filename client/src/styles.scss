@@ -1,1 +1,44 @@
-/* You can add global styles to this file, and also import other style files */
+@use "styles/tokens";
+@use "styles/primitives";
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  direction: rtl;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font);
+  font-size: 14px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3,
+h4,
+p {
+  margin: 0;
+}
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+
+  &:hover {
+    color: var(--accent-hover);
+  }
+}
+
+// Direction-aware icons: flip anything marked for RTL mirroring.
+[dir="rtl"] .rtl-flip {
+  transform: scaleX(-1);
+}
